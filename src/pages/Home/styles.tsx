@@ -22,8 +22,7 @@ const useStyles = createUseStyles<RuleNames, IHomeProps, IScheme>({
     maxWidth: defaultContainer.Width,
     padding: defaultContainer.paddingHorizontal,
     height: 400,
-    color: theme.textPrimary,
-    backgroundColor: theme.background1,
+    color: theme.primary0,
   }),
 });
 
