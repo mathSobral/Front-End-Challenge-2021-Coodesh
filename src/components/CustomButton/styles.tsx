@@ -12,6 +12,7 @@ const useStyles = createUseStyles<RuleNames, ICustomButtonProps, IScheme>({
       borderRadius: 6,
       textTransform: "none",
       backgroundColor: theme.primary0,
+      color: theme.textTertiary,
       "&:hover": {
         backgroundColor: theme.primary1,
       },

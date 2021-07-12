@@ -1,23 +1,23 @@
 import { createUseStyles } from "react-jss";
-import { IScheme } from "../../constants/schemes";
+import { IScheme } from "../../../constants/schemes";
 import { IHeaderProps } from "./index";
-import { defaultContainer } from "../../constants/sizes";
+import { defaultContainer } from "../../../constants/sizes";
 
 // Define Component
 type RuleNames =
   | "mainContainer"
   | "container"
   | "menu"
-  | "freeTrialWrapper"
-  | "freeTrialButton";
+  | "button"
+  | "foldBar"
+  | "title"
+  | "subtitle";
 
 const useStyles = createUseStyles<RuleNames, IHeaderProps, IScheme>({
   mainContainer: ({ theme, ...props }) => ({
     display: "flex",
     justifyContent: "center",
     width: "100%",
-    boxShadow: `0px 0px 8px -3px ${theme.shadow}`,
-    backgroundColor: theme.background0,
   }),
   /**
    * Exemplo de como usar a paleta de cores do tema nos arquivos de estilo
@@ -28,22 +28,30 @@ const useStyles = createUseStyles<RuleNames, IHeaderProps, IScheme>({
     width: "100%",
     maxWidth: defaultContainer.Width,
     padding: defaultContainer.paddingHorizontal,
-    height: 70,
-    color: theme.primary0,
-    display: "grid",
-    gridTemplateColumns: "250px auto 200px",
   }),
   menu: {
     display: "flex",
     justifyContent: "flex-end",
     gap: 20,
   },
-  freeTrialWrapper: {
-    display: "flex",
-    justifyContent: "flex-end",
+  foldBar: {
+    position: "absolute",
+    zIndex: -1,
+    top: -700,
+    right: -300,
   },
-  freeTrialButton: {
-    width: 160,
+  title: {
+    width: "100%",
+    maxWidth: 600,
+  },
+  subtitle: {
+    width: "100%",
+    maxWidth: 600,
+    paddingBottom: 30,
+  },
+  button: {
+    width: 180,
+    height: 60,
   },
 });
 
