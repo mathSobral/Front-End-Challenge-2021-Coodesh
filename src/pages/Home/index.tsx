@@ -5,6 +5,7 @@ import { IScheme } from "../../constants/schemes";
 import useStyles from "./styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CustomCheckbox from "../../components/CustomCheckbox";
+import FirstFold from "../../components/Home/FirstFold";
 
 export interface IHomeProps {}
 
@@ -14,6 +15,7 @@ const Home: React.FC<IHomeProps> = () => {
   return (
     <>
       <Header />
+      <FirstFold />
       <div className={classes.mainContainer}>
         <div className={classes.container}>
           Marcha Fellas!
