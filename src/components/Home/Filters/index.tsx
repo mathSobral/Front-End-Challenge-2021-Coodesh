@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useContext } from "react";
 import { useTheme } from "react-jss";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -10,17 +10,17 @@ import useStyles from "./styles";
 import CustomTypography from "../../CustomTypography";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
+import SearchContext from "../../../contexts/search";
 
-export interface IFiltersProps {
-  query?: string;
-}
+export interface IFiltersProps {}
 
-const Filters: React.FC<IFiltersProps> = ({ query }) => {
+const Filters: React.FC<IFiltersProps> = () => {
   const theme = useTheme<IScheme>();
   const classes = useStyles({ theme });
   const { t } = useTranslation();
   const history = useHistory();
   const formRef = useRef<HTMLFormElement>(null);
+  const { initialFilters } = useContext(SearchContext);
 
   const pushQueryOnHistory = () => {
     const query = formRef.current ? formRef.current.query.value : "";
@@ -57,7 +57,7 @@ const Filters: React.FC<IFiltersProps> = ({ query }) => {
         <form ref={formRef} onSubmit={submitHandler}>
           <div className={classes.searchbarWrapper}>
             <TextField
-              key={`query-${query}`}
+              key={`query-${initialFilters?.query}`}
               type="search"
               name="query"
               label={t("filters.searching")}
@@ -71,7 +71,7 @@ const Filters: React.FC<IFiltersProps> = ({ query }) => {
               }}
               onKeyPress={handleKeyPress}
               onChange={debouncedQueryChangeHandler}
-              defaultValue={query}
+              defaultValue={initialFilters?.query}
             />
           </div>
         </form>

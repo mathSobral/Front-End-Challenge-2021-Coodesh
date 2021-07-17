@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useTheme } from "react-jss";
 import { useTranslation } from "react-i18next";
 import { IScheme } from "../../../constants/schemes";
@@ -11,43 +11,16 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import useStyles from "./styles";
 import CustomTypography from "../../CustomTypography";
+import SearchContext, { User, Name } from "../../../contexts/search";
 
-export interface Id {
-  name: string;
-  value: string;
-}
+export interface PatientTableProps {}
 
-export interface Name {
-  title: string;
-  first: string;
-  last: string;
-}
-
-export interface Dob {
-  date: string;
-}
-
-export interface PatientTableRow {
-  id: Id;
-  name: Name;
-  gender: string;
-  dob: Dob;
-}
-
-export interface PatientFilters {
-  query?: string;
-}
-
-export interface PatientTableProps {
-  users?: PatientTableRow[];
-  filters?: PatientFilters;
-}
-
-const PatientTable: React.FC<PatientTableProps> = ({ users, filters }) => {
+const PatientTable: React.FC<PatientTableProps> = () => {
   const theme = useTheme<IScheme>();
   const classes = useStyles({ theme });
   const { t } = useTranslation();
-  const [filteredUsers, setFilteredUsers] = useState<PatientTableRow[]>();
+  const { users, filters } = useContext(SearchContext);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>();
 
   function formatName(name: Name): string {
     if (!name) return "";
@@ -56,7 +29,7 @@ const PatientTable: React.FC<PatientTableProps> = ({ users, filters }) => {
 
   useEffect(() => {
     if (users && filters) {
-      const newResults = users.filter((user: PatientTableRow) =>
+      const newResults = users.filter((user: User) =>
         filters.query
           ? formatName(user.name)
               .toLocaleLowerCase()
