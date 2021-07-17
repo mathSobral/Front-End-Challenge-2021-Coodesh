@@ -9,18 +9,13 @@ const ThemeContext = createContext({});
 interface ThemeProviderProps {
   children: React.ReactNode;
 }
-/**
- * The ThemeProvider is a wrapper to JssThemeProvider that allows switch themes.
- * */
+
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [selectedTheme, setSelectedTheme] = useState(lightScheme);
 
-  /**
-   * Load last selected theme or the prefered color scheme.
-   */
   useEffect(() => {
-    const savedTheme = localStorage.getItem("@rhisa/lastTheme");
+    const savedTheme = localStorage.getItem("@pharma/lastTheme");
 
     if (savedTheme) {
       setSelectedTheme(savedTheme === "light" ? lightScheme : darkScheme);
@@ -29,22 +24,16 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
   }, [prefersDarkMode]);
 
-  /**
-   * Switch the theme mode between light, dark or an auto value based on css prefers-color-scheme.
-   */
   function switchTheme(themingMode: string) {
     if (themingMode === "light" || themingMode === "dark") {
       setSelectedTheme(themingMode === "light" ? lightScheme : darkScheme);
-      localStorage.setItem("@rhisa/lastTheme", themingMode);
+      localStorage.setItem("@pharma/lastTheme", themingMode);
     } else {
       setSelectedTheme(prefersDarkMode ? darkScheme : lightScheme);
-      localStorage.removeItem("@rhisa/lastTheme");
+      localStorage.removeItem("@pharma/lastTheme");
     }
   }
 
-  /**
-   * Generate a theme to be used on Material-ui components.
-   */
   const muiTheme = useMemo(
     () =>
       createTheme({

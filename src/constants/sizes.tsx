@@ -3,7 +3,7 @@
  */
 
 export const defaultContainer = {
-  Width: 1220,
+  Width: 1050,
   paddingHorizontal: 16,
 };
 

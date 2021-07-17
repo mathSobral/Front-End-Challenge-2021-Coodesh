@@ -2,8 +2,9 @@ import React from "react";
 import { useTheme } from "react-jss";
 import { useTranslation } from "react-i18next";
 import { IScheme } from "../../constants/schemes";
-import Button from "../CustomButton";
-import HeaderButton from "./HeaderButton";
+import CustomTypography from "../CustomTypography";
+import logoImg from "../../assets/img/logo.png";
+import profileImg from "../../assets/img/emptyProfile.png";
 import useStyles from "./styles";
 
 export interface IHeaderProps {}
@@ -16,18 +17,21 @@ const Header: React.FC<IHeaderProps> = () => {
   return (
     <div className={classes.mainContainer}>
       <div className={classes.container}>
-        <div>Logomarca</div>
-        <div className={classes.menu}>
-          <HeaderButton to="#">{t("header.about")}</HeaderButton>
-          <HeaderButton to="#">{t("header.prices")}</HeaderButton>
-          <HeaderButton to="#">{t("header.contact")}</HeaderButton>
-          <HeaderButton to="#">{t("header.login")}</HeaderButton>
+        <div className={classes.logoSection}>
+          <div className={classes.imgWrapper}>
+            <img alt="logo" src={logoImg} className={classes.logo} />
+          </div>
+          <div>
+            <CustomTypography variant="h4" weight="bold">
+              Company
+            </CustomTypography>
+          </div>
         </div>
 
         <div className={classes.freeTrialWrapper}>
-          <Button className={classes.freeTrialButton}>
-            {t("header.freeTrial")}
-          </Button>
+          <div className={classes.profileImgWrapper}>
+            <img alt="logo" src={profileImg} className={classes.profileImg} />
+          </div>
         </div>
       </div>
     </div>

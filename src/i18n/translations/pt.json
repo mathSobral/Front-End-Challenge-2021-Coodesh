@@ -5,5 +5,15 @@
     "contact": "Contato",
     "login": "Login",
     "freeTrial": "Teste Grátis"
+  },
+  "filters": {
+    "title": "Visualização da informação dos pacientes de maneira simples e objetiva em um Dashboard onde pode ser feita listagem e filtro dos dados disponíveis",
+    "searching": "Pesquisando"
+  },
+  "patientsTable": {
+    "name": "Nome",
+    "gender": "Gênero",
+    "birth": "Nascimento",
+    "actions": "Ações"
   }
 }

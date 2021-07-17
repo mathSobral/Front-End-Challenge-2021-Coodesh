@@ -5,7 +5,7 @@ import useStyles, { RuleNames } from "./styles";
 
 export interface ICustomButtonProps {
   variant?: RuleNames;
-  weight?: string;
+  weight?: string | number;
   color?: string;
   children?: React.ReactNode;
 }
@@ -17,7 +17,7 @@ const CustomTypography: React.FC<
   const classes = useStyles({ theme });
 
   const style = {
-    weight: weight ? weight : undefined,
+    fontWeight: weight ? weight : 400,
     color: color ? color : undefined,
   };
 
@@ -25,7 +25,7 @@ const CustomTypography: React.FC<
     <span
       {...props}
       className={variant ? classes[variant] : classes.body}
-      style={style}
+      style={style as React.CSSProperties}
     >
       {children}
     </span>

@@ -4,7 +4,7 @@ import { ICustomButtonProps } from "./index";
 // import { defaultContainer } from "../../constants/sizes";
 
 // Define Component
-export type RuleNames = "h1" | "h3" | "body";
+export type RuleNames = "h1" | "h3" | "h4" | "body";
 
 const useStyles = createUseStyles<RuleNames, ICustomButtonProps, IScheme>({
   h1: ({ theme, ...props }) => ({
@@ -15,6 +15,10 @@ const useStyles = createUseStyles<RuleNames, ICustomButtonProps, IScheme>({
   h3: ({ theme, ...props }) => ({
     color: theme.textPrimary,
     fontSize: 35,
+  }),
+  h4: ({ theme, ...props }) => ({
+    color: theme.textPrimary,
+    fontSize: 22,
   }),
   body: ({ theme, ...props }) => ({
     color: theme.textPrimary,
