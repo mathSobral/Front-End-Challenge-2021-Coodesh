@@ -7,7 +7,7 @@ import { ICustomButtonProps } from "./index";
 type RuleNames = "root";
 
 const useStyles = createUseStyles<RuleNames, ICustomButtonProps, IScheme>({
-  root: ({ theme, ...props }) => ({
+  root: ({ theme }) => ({
     "&.MuiButton-root": {
       borderRadius: 6,
       textTransform: "none",

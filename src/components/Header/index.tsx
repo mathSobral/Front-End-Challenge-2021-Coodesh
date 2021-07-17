@@ -23,7 +23,7 @@ const Header: React.FC<IHeaderProps> = () => {
           </div>
           <div>
             <CustomTypography variant="h4" weight="bold">
-              Company
+              {t("header.company")}
             </CustomTypography>
           </div>
         </div>

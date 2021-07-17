@@ -7,24 +7,19 @@ import { defaultContainer } from "../../../constants/sizes";
 type RuleNames = "mainContainer" | "container" | "table" | "tableRow";
 
 const useStyles = createUseStyles<RuleNames, PatientTableProps, IScheme>({
-  mainContainer: ({ theme, ...props }) => ({
+  mainContainer: ({}) => ({
     display: "flex",
     justifyContent: "center",
     width: "100%",
   }),
-  /**
-   * Exemplo de como usar a paleta de cores do tema nos arquivos de estilo
-   * @param param0
-   * @returns
-   */
-  container: ({ theme, ...props }) => ({
+  container: ({}) => ({
     width: "100%",
     maxWidth: defaultContainer.Width,
     padding: defaultContainer.paddingHorizontal,
   }),
-  table: ({ theme, ...props }) => ({
+  table: ({ theme }) => ({
     "& .MuiTableCell-head": {
-      backgroundColor: theme.primary1,
+      backgroundColor: theme.textPrimary,
       color: theme.textTertiary,
     },
     "& td": {
@@ -34,7 +29,7 @@ const useStyles = createUseStyles<RuleNames, PatientTableProps, IScheme>({
       borderRight: "none",
     },
   }),
-  tableRow: ({ theme, ...props }) => ({
+  tableRow: ({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.hover,
     },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "react-jss";
 import { useTranslation } from "react-i18next";
 import { IScheme } from "../../../constants/schemes";
@@ -12,30 +12,60 @@ import Paper from "@material-ui/core/Paper";
 import useStyles from "./styles";
 import CustomTypography from "../../CustomTypography";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
+export interface Id {
+  name: string;
+  value: string;
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+export interface Name {
+  title: string;
+  first: string;
+  last: string;
+}
 
-export interface PatientTableProps {}
+export interface Dob {
+  date: string;
+}
 
-const PatientTable: React.FC<PatientTableProps> = () => {
+export interface PatientTableRow {
+  id: Id;
+  name: Name;
+  gender: string;
+  dob: Dob;
+}
+
+export interface PatientFilters {
+  query?: string;
+}
+
+export interface PatientTableProps {
+  users?: PatientTableRow[];
+  filters?: PatientFilters;
+}
+
+const PatientTable: React.FC<PatientTableProps> = ({ users, filters }) => {
   const theme = useTheme<IScheme>();
   const classes = useStyles({ theme });
   const { t } = useTranslation();
+  const [filteredUsers, setFilteredUsers] = useState<PatientTableRow[]>();
+
+  function formatName(name: Name): string {
+    if (!name) return "";
+    return `${name.first} ${name.last}`;
+  }
+
+  useEffect(() => {
+    if (users && filters) {
+      const newResults = users.filter((user: PatientTableRow) =>
+        filters.query
+          ? formatName(user.name)
+              .toLocaleLowerCase()
+              .includes(filters.query.toLocaleLowerCase())
+          : true
+      );
+      setFilteredUsers(newResults);
+    }
+  }, [filters, users]);
 
   return (
     <div className={classes.mainContainer}>
@@ -55,30 +85,34 @@ const PatientTable: React.FC<PatientTableProps> = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow className={classes.tableRow} key={row.name}>
-                  <TableCell>
-                    <CustomTypography variant="body">
-                      {row.name}
-                    </CustomTypography>
-                  </TableCell>
-                  <TableCell>
-                    <CustomTypography variant="body">
-                      {row.calories}
-                    </CustomTypography>
-                  </TableCell>
-                  <TableCell>
-                    <CustomTypography variant="body">
-                      {row.fat}
-                    </CustomTypography>
-                  </TableCell>
-                  <TableCell>
-                    <CustomTypography variant="body">
-                      {row.carbs}
-                    </CustomTypography>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {filteredUsers &&
+                filteredUsers.map((row) => (
+                  <TableRow
+                    className={classes.tableRow}
+                    key={row.id.value || formatName(row.name)}
+                  >
+                    <TableCell>
+                      <CustomTypography variant="body">
+                        {formatName(row.name)}
+                      </CustomTypography>
+                    </TableCell>
+                    <TableCell>
+                      <CustomTypography variant="body">
+                        {t(`patientsTable.${row.gender}`)}
+                      </CustomTypography>
+                    </TableCell>
+                    <TableCell>
+                      <CustomTypography variant="body">
+                        {t("patientsTable.birthDate", {
+                          date: new Date(row.dob.date),
+                        })}
+                      </CustomTypography>
+                    </TableCell>
+                    <TableCell>
+                      <CustomTypography variant="body">aa</CustomTypography>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

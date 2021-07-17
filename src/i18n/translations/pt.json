@@ -1,10 +1,6 @@
 {
   "header": {
-    "about": "Sobre",
-    "prices": "Preços",
-    "contact": "Contato",
-    "login": "Login",
-    "freeTrial": "Teste Grátis"
+    "company": "Pharma Inc."
   },
   "filters": {
     "title": "Visualização da informação dos pacientes de maneira simples e objetiva em um Dashboard onde pode ser feita listagem e filtro dos dados disponíveis",
@@ -14,6 +10,10 @@
     "name": "Nome",
     "gender": "Gênero",
     "birth": "Nascimento",
-    "actions": "Ações"
-  }
+    "actions": "Ações",
+    "birthDate": "{{date, DD MMM, YYYY}}",
+    "female": "Feminino",
+    "male": "Masculino"
+  },
+  "loadingMore": "Carregando mais"
 }

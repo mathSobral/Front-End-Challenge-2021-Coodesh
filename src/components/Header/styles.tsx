@@ -15,7 +15,7 @@ type RuleNames =
   | "profileImg";
 
 const useStyles = createUseStyles<RuleNames, IHeaderProps, IScheme>({
-  mainContainer: ({ theme, ...props }) => ({
+  mainContainer: ({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     width: "100%",
@@ -27,7 +27,7 @@ const useStyles = createUseStyles<RuleNames, IHeaderProps, IScheme>({
    * @param param0
    * @returns
    */
-  container: ({ theme, ...props }) => ({
+  container: ({ theme }) => ({
     width: "100%",
     maxWidth: defaultContainer.Width,
     padding: `0px ${defaultContainer.paddingHorizontal}px`,
@@ -52,7 +52,7 @@ const useStyles = createUseStyles<RuleNames, IHeaderProps, IScheme>({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  profileImgWrapper: ({ theme, ...props }) => ({
+  profileImgWrapper: ({ theme }) => ({
     backgroundColor: theme.background2,
     borderRadius: "100%",
     width: 50,

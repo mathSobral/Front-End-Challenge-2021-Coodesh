@@ -7,20 +7,20 @@ import { ICustomButtonProps } from "./index";
 export type RuleNames = "h1" | "h3" | "h4" | "body";
 
 const useStyles = createUseStyles<RuleNames, ICustomButtonProps, IScheme>({
-  h1: ({ theme, ...props }) => ({
+  h1: ({ theme }) => ({
     color: theme.textPrimary,
     fontSize: 64,
     fontWeight: "bold",
   }),
-  h3: ({ theme, ...props }) => ({
+  h3: ({ theme }) => ({
     color: theme.textPrimary,
     fontSize: 35,
   }),
-  h4: ({ theme, ...props }) => ({
+  h4: ({ theme }) => ({
     color: theme.textPrimary,
     fontSize: 22,
   }),
-  body: ({ theme, ...props }) => ({
+  body: ({ theme }) => ({
     color: theme.textPrimary,
     fontSize: 16,
     fontWeight: "400",

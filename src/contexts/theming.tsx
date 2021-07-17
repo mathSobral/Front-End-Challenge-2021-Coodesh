@@ -10,8 +10,8 @@ interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: light)");
   const [selectedTheme, setSelectedTheme] = useState(lightScheme);
 
   useEffect(() => {
@@ -67,6 +67,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       </JssThemeProvider>
     </ThemeContext.Provider>
   );
-}
+};
 
 export default ThemeContext;
