@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 // import { useTheme } from "react-jss";
 import Header from "../../components/Header";
+import LoadingMore from "../../components/LoadingMore";
 import Filters from "../../components/Home/Filters";
 import PatientTable from "../../components/Home/PatientTable";
-import LoadingMore from "../../components/LoadingMore";
+import HomePagination from "../../components/Home/HomePagination";
 import SearchContext from "../../contexts/search";
 
 export interface IHomeProps {}
@@ -14,8 +15,8 @@ const Home: React.FC<IHomeProps> = () => {
     <>
       <Header />
       <Filters />
-      <PatientTable />
-      {loading && <LoadingMore />}
+      {loading ? <LoadingMore /> : <PatientTable />}
+      <HomePagination />
     </>
   );
 };

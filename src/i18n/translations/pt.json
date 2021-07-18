@@ -4,7 +4,9 @@
   },
   "filters": {
     "title": "Visualização da informação dos pacientes de maneira simples e objetiva em um Dashboard onde pode ser feita listagem e filtro dos dados disponíveis",
-    "searching": "Pesquisando"
+    "searching": "Pesquisando",
+    "doFilter": "Filtrar",
+    "nextPage": "Proxima Página"
   },
   "patientsTable": {
     "name": "Nome",
@@ -13,7 +15,14 @@
     "actions": "Ações",
     "birthDate": "{{date, DD MMM, YYYY}}",
     "female": "Feminino",
-    "male": "Masculino"
+    "male": "Masculino",
+    "doView": "Visualizar",
+    "id": "Código",
+    "email": "E-mail",
+    "dateOfBirth": "Data de nascimento",
+    "nationality": "Nacionalidade",
+    "address": "Endereço",
+    "uninformed": "Não informado"
   },
   "loadingMore": "Carregando mais"
 }

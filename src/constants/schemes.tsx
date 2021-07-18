@@ -11,6 +11,7 @@ export interface IScheme {
   background0: string;
   background1: string;
   background2: string;
+  background3: string;
   shadow: string;
   hover: string;
   stroke: string;
@@ -25,6 +26,7 @@ export const lightScheme: IScheme = {
   background0: "#F7F9FA",
   background1: "#FFFFFF",
   background2: "#E4E6E7",
+  background3: "#e4e6e794",
   shadow: "#263238",
   hover: "#F5F5F5",
   stroke: "#e0e0e0",

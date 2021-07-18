@@ -1,7 +1,6 @@
 import React, { useRef, useMemo, useContext } from "react";
 import { useTheme } from "react-jss";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import debounce from "lodash.debounce";
 import { IScheme } from "../../../constants/schemes";
@@ -18,13 +17,12 @@ const Filters: React.FC<IFiltersProps> = () => {
   const theme = useTheme<IScheme>();
   const classes = useStyles({ theme });
   const { t } = useTranslation();
-  const history = useHistory();
   const formRef = useRef<HTMLFormElement>(null);
-  const { initialFilters } = useContext(SearchContext);
+  const { initialFilters, setQuery } = useContext(SearchContext);
 
   const pushQueryOnHistory = () => {
     const query = formRef.current ? formRef.current.query.value : "";
-    history.push(`?query=${query}`);
+    setQuery(query);
   };
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -76,7 +74,7 @@ const Filters: React.FC<IFiltersProps> = () => {
           </div>
         </form>
 
-        <Button className={classes.button}>Filtrar</Button>
+        <Button>{t("filters.doFilter")}</Button>
       </div>
     </div>
   );
