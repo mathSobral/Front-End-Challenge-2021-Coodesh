@@ -2,10 +2,10 @@
 
 ## 📋 Sobre o projeto
 
-Consiste em uma dashboard de visualização das informações de usários,
-ondem podem ser aplicados filtros de nome, gênero e nacionalidade.
+Consiste em uma dashboard de visualização das informações de usuários ondem podem ser aplicados filtros de nome, gênero e nacionalidade.
 
 ## Aplicação em execução
+- [Demo](https://front-end-challenge-2021-coodesh.vercel.app/)
 
 ## 🚀 Tecnologias
 
