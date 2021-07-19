@@ -13,7 +13,7 @@ export interface LoadingMoreProps {
 const LoadingMore: React.FC<LoadingMoreProps> = () => {
   const theme = useTheme<IScheme>();
   const classes = useStyles({ theme });
-  const { setPage, initialFilters } = useContext(SearchContext);
+  const { setPage, initialFilters, filters } = useContext(SearchContext);
   // const { t } = useTranslation();
 
   const handlePageChange = (
@@ -33,6 +33,7 @@ const LoadingMore: React.FC<LoadingMoreProps> = () => {
             shape="rounded"
             onChange={handlePageChange}
             defaultPage={initialFilters?.page || 1}
+            page={filters.page}
           />
         </div>
       </div>

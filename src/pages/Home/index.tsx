@@ -15,6 +15,7 @@ const Home: React.FC<IHomeProps> = () => {
     <>
       <Header />
       <Filters />
+      <HomePagination />
       {loading ? <LoadingMore /> : <PatientTable />}
       <HomePagination />
     </>

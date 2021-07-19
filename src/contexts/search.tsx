@@ -6,6 +6,8 @@ import { useHistory, useLocation } from "react-router-dom";
 export interface SearchFilters {
   query?: string;
   page?: number;
+  gender?: string;
+  nat?: string;
 }
 
 export interface Id {
@@ -60,6 +62,7 @@ export interface SearchContextValues {
   filters: SearchFilters;
   setPage: (page: number) => void;
   setQuery: (query: string) => void;
+  setGender: (query: string) => void;
   findByName: (name: Name) => User | undefined;
   formatName: (name: Name) => string;
 }
@@ -76,7 +79,9 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
   children,
 }: SearchProviderProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [filters, setFilters] = useState<SearchFilters>({ page: 1 });
+  const [filters, setFilters] = useState<SearchFilters>({
+    page: 0,
+  });
   const [initialFilters, setInitialFilters] = useState<SearchFilters>();
   const [users, setUsers] = useState<User[]>();
   const [isMounted, setisMounted] = useState<boolean>(false);
@@ -88,7 +93,8 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
     const newFilters = queryString.parse(search);
     const initalF = {
       query: newFilters.query,
-      page: parseFloat(newFilters.page as string),
+      page: parseFloat(newFilters.page as string) || 1,
+      gender: newFilters.gender || "all",
     } as SearchFilters;
     setInitialFilters(initalF);
     setFilters(initalF);
@@ -113,14 +119,26 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
     }
   }, [filters.page]);
 
+  useEffect(() => {
+    if (filters.page || filters.query) {
+      history.push(
+        `?query=${filters.query || ""}${
+          filters.page ? `&page=${filters.page}` : ""
+        }${filters.gender !== "all" ? `&gender=${filters.gender}` : ""}`
+      );
+    }
+  }, [filters.page, filters.query, filters.gender]);
+
   const setQuery = (query: string) => {
-    history.push(`?query=${query || ""}&page=${filters.page}`);
-    setFilters((oldValue) => ({ ...oldValue, query }));
+    setFilters((oldValue) => ({ ...oldValue, query: query }));
   };
 
   const setPage = (page: number) => {
-    history.push(`?query=${filters.query || ""}&page=${page}`);
-    setFilters((oldValue) => ({ ...oldValue, page }));
+    setFilters((oldValue) => ({ ...oldValue, page: page }));
+  };
+
+  const setGender = (gender: string) => {
+    setFilters((oldValue) => ({ ...oldValue, gender: gender }));
   };
 
   const formatName = (name: Name): string => {
@@ -142,6 +160,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
     setQuery,
     formatName,
     findByName,
+    setGender,
   } as SearchContextValues;
   return (
     <SearchContext.Provider value={contextValues}>

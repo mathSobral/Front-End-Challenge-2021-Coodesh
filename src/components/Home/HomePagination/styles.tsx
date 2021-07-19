@@ -18,7 +18,7 @@ const useStyles = createUseStyles<RuleNames, LoadingMoreProps, IScheme>({
     padding: defaultContainer.paddingHorizontal,
     color: theme.primary0,
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
   }),
   paginatorWrapper: {},
 });

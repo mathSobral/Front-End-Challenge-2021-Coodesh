@@ -33,6 +33,8 @@ const PatientTable: React.FC<PatientTableProps> = () => {
           ? formatName(user.name)
               .toLocaleLowerCase()
               .includes(filters.query.toLocaleLowerCase())
+          : true && filters.gender && filters.gender !== "all"
+          ? user.gender === filters.gender
           : true
       );
       setFilteredUsers(newResults);

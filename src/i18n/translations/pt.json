@@ -22,7 +22,8 @@
     "dateOfBirth": "Data de nascimento",
     "nationality": "Nacionalidade",
     "address": "Endereço",
-    "uninformed": "Não informado"
+    "uninformed": "Não informado",
+    "all": "Todos"
   },
   "loadingMore": "Carregando mais"
 }

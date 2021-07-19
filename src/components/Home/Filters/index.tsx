@@ -4,12 +4,15 @@ import { useTranslation } from "react-i18next";
 import TextField from "@material-ui/core/TextField";
 import debounce from "lodash.debounce";
 import { IScheme } from "../../../constants/schemes";
-import Button from "../../CustomButton";
-import useStyles from "./styles";
 import CustomTypography from "../../CustomTypography";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
 import SearchContext from "../../../contexts/search";
+import useStyles from "./styles";
 
 export interface IFiltersProps {}
 
@@ -18,7 +21,8 @@ const Filters: React.FC<IFiltersProps> = () => {
   const classes = useStyles({ theme });
   const { t } = useTranslation();
   const formRef = useRef<HTMLFormElement>(null);
-  const { initialFilters, setQuery } = useContext(SearchContext);
+  const { initialFilters, setQuery, filters, setGender } =
+    useContext(SearchContext);
 
   const pushQueryOnHistory = () => {
     const query = formRef.current ? formRef.current.query.value : "";
@@ -42,6 +46,10 @@ const Filters: React.FC<IFiltersProps> = () => {
     if (event.key === "Enter") {
       pushQueryOnHistory();
     }
+  };
+
+  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGender((event.target as HTMLInputElement).value);
   };
 
   return (
@@ -72,9 +80,32 @@ const Filters: React.FC<IFiltersProps> = () => {
               defaultValue={initialFilters?.query}
             />
           </div>
+          <FormLabel component="legend">{t("patientsTable.gender")}</FormLabel>
+          <RadioGroup
+            key={`gender-${filters.gender}`}
+            aria-label="gender"
+            name="gender1"
+            value={filters.gender}
+            onChange={handleGenderChange}
+            row
+          >
+            <FormControlLabel
+              value="all"
+              control={<Radio />}
+              label={t("patientsTable.all")}
+            />
+            <FormControlLabel
+              value="female"
+              control={<Radio />}
+              label={t("patientsTable.female")}
+            />
+            <FormControlLabel
+              value="male"
+              control={<Radio />}
+              label={t("patientsTable.male")}
+            />
+          </RadioGroup>
         </form>
-
-        <Button>{t("filters.doFilter")}</Button>
       </div>
     </div>
   );
