@@ -6,7 +6,8 @@
     "title": "Visualização da informação dos pacientes de maneira simples e objetiva em um Dashboard onde pode ser feita listagem e filtro dos dados disponíveis",
     "searching": "Pesquisando",
     "doFilter": "Filtrar",
-    "nextPage": "Proxima Página"
+    "nextPage": "Proxima Página",
+    "none": "Nenhuma"
   },
   "patientsTable": {
     "name": "Nome",

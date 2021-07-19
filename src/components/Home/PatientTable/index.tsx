@@ -9,11 +9,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import useStyles from "./styles";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import ReactCountryFlag from "react-country-flag";
 import CustomTypography from "../../CustomTypography";
 import SearchContext, { User } from "../../../contexts/search";
 import CustomButton from "../../CustomButton";
 import UserModal from "../UserModal";
+import useStyles from "./styles";
 
 export interface PatientTableProps {}
 
@@ -28,15 +31,26 @@ const PatientTable: React.FC<PatientTableProps> = () => {
 
   useEffect(() => {
     if (users && filters) {
-      const newResults = users.filter((user: User) =>
-        filters.query
-          ? formatName(user.name)
-              .toLocaleLowerCase()
-              .includes(filters.query.toLocaleLowerCase())
-          : true && filters.gender && filters.gender !== "all"
-          ? user.gender === filters.gender
-          : true
-      );
+      const newResults = users.filter((user: User) => {
+        let nameMatch = true;
+        let genderMatch = true;
+
+        if (filters.query && filters.query !== "") {
+          nameMatch = formatName(user.name)
+            .toLocaleLowerCase()
+            .includes(filters.query.toLocaleLowerCase());
+        }
+
+        if (
+          filters.gender &&
+          filters.gender !== "" &&
+          filters.gender !== "all"
+        ) {
+          genderMatch = user.gender === filters.gender;
+        }
+
+        return nameMatch && genderMatch;
+      });
       setFilteredUsers(newResults);
     }
   }, [filters, users]);
@@ -76,6 +90,7 @@ const PatientTable: React.FC<PatientTableProps> = () => {
                     >
                       <TableCell>
                         <CustomTypography variant="body">
+                          <ReactCountryFlag countryCode={row.nat} svg />
                           {formatName(row.name)}
                         </CustomTypography>
                       </TableCell>

@@ -12,6 +12,8 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import SearchContext from "../../../contexts/search";
+import CustomSelect, { SelectOptions } from "../../CustomSelector";
+import Nationalities from "./nationalities";
 import useStyles from "./styles";
 
 export interface IFiltersProps {}
@@ -21,7 +23,7 @@ const Filters: React.FC<IFiltersProps> = () => {
   const classes = useStyles({ theme });
   const { t } = useTranslation();
   const formRef = useRef<HTMLFormElement>(null);
-  const { initialFilters, setQuery, filters, setGender } =
+  const { initialFilters, setQuery, filters, setGender, setNationality } =
     useContext(SearchContext);
 
   const pushQueryOnHistory = () => {
@@ -50,6 +52,13 @@ const Filters: React.FC<IFiltersProps> = () => {
 
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGender((event.target as HTMLInputElement).value);
+  };
+
+  const handleNationalityChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    const value = event.target.value as string;
+    setNationality(value);
   };
 
   return (
@@ -105,6 +114,19 @@ const Filters: React.FC<IFiltersProps> = () => {
               label={t("patientsTable.male")}
             />
           </RadioGroup>
+          <CustomSelect
+            value={filters.nat}
+            isNat
+            label={t("patientsTable.nationality")}
+            onChange={handleNationalityChange}
+            options={Nationalities.map(
+              (nat) =>
+                ({
+                  name: nat,
+                  value: nat,
+                } as SelectOptions)
+            )}
+          />
         </form>
       </div>
     </div>

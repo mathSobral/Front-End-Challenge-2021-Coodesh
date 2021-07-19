@@ -8,11 +8,11 @@ import "@fontsource/roboto";
 import Routes from "./routes";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <ThemeProvider>
       <CssBaseline />
       <Routes />
     </ThemeProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );

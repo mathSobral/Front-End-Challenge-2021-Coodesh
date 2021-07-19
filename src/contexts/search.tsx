@@ -7,7 +7,7 @@ export interface SearchFilters {
   query?: string;
   page?: number;
   gender?: string;
-  nat?: string;
+  nat: string;
 }
 
 export interface Id {
@@ -63,6 +63,7 @@ export interface SearchContextValues {
   setPage: (page: number) => void;
   setQuery: (query: string) => void;
   setGender: (query: string) => void;
+  setNationality: (nationality: string) => void;
   findByName: (name: Name) => User | undefined;
   formatName: (name: Name) => string;
 }
@@ -81,6 +82,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [filters, setFilters] = useState<SearchFilters>({
     page: 0,
+    nat: "",
   });
   const [initialFilters, setInitialFilters] = useState<SearchFilters>();
   const [users, setUsers] = useState<User[]>();
@@ -95,6 +97,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
       query: newFilters.query,
       page: parseFloat(newFilters.page as string) || 1,
       gender: newFilters.gender || "all",
+      nat: newFilters.nat || "",
     } as SearchFilters;
     setInitialFilters(initalF);
     setFilters(initalF);
@@ -106,7 +109,9 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
    */
   useEffect(() => {
     if (isMounted) {
-      const url = `?seed=coodesh&page=${filters.page}&results=50&inc=picture,name,email,gender,dob,phone,nat,location,id`;
+      const url = `?seed=coodesh&page=${filters.page}&nat=${
+        filters.nat || ""
+      }&results=50&inc=picture,name,email,gender,dob,phone,nat,location,id`;
 
       setLoading(true);
       api
@@ -117,17 +122,19 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
         })
         .catch(() => console.log("erro ocorreu"));
     }
-  }, [filters.page]);
+  }, [filters.page, filters.nat]);
 
   useEffect(() => {
     if (filters.page || filters.query) {
       history.push(
         `?query=${filters.query || ""}${
           filters.page ? `&page=${filters.page}` : ""
-        }${filters.gender !== "all" ? `&gender=${filters.gender}` : ""}`
+        }${filters.gender !== "all" ? `&gender=${filters.gender}` : ""}${
+          filters.nat !== "" ? `&nat=${filters.nat}` : ""
+        }`
       );
     }
-  }, [filters.page, filters.query, filters.gender]);
+  }, [filters.page, filters.query, filters.gender, filters.nat]);
 
   const setQuery = (query: string) => {
     setFilters((oldValue) => ({ ...oldValue, query: query }));
@@ -139,6 +146,10 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
 
   const setGender = (gender: string) => {
     setFilters((oldValue) => ({ ...oldValue, gender: gender }));
+  };
+
+  const setNationality = (nat: string) => {
+    setFilters((oldValue) => ({ ...oldValue, nat: nat }));
   };
 
   const formatName = (name: Name): string => {
@@ -161,6 +172,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({
     formatName,
     findByName,
     setGender,
+    setNationality,
   } as SearchContextValues;
   return (
     <SearchContext.Provider value={contextValues}>
