@@ -32,7 +32,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   label = "Custom Select",
 }) => {
   const theme = useTheme<IScheme>();
-  const classes = useStyles({ theme, options, value, isNat, label });
+  const classes = useStyles({
+    theme,
+    options,
+    value,
+    isNat,
+    label,
+  });
   const { t } = useTranslation();
 
   return (
@@ -43,6 +49,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         value={value}
         onChange={onChange}
         input={<BootstrapInput />}
+        displayEmpty
       >
         <MenuItem value="">
           <em>{t("filters.none")}</em>
